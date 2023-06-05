@@ -130,4 +130,10 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  
+  hardware = {
+    sane = {
+      enable = true;
+    };
+  };
 }
