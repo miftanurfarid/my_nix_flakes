@@ -57,7 +57,26 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services = {
+    printing = {
+      enable = true;
+      stateless = true;
+      webInterface = false;
+      drivers = with pkgs; [
+        cnijfilter2 # nonfree
+        epson-escpr
+        epson-escpr2
+        foomatic-db
+        foomatic-db-ppds
+        gutenprint
+        hplip
+        splix
+      ];
+    };
+    system-config-printer = {
+      enable = true;
+    };
+  };
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -135,5 +154,11 @@
     sane = {
       enable = true;
     };
+  };
+
+  environment = {
+    interactiveShellInit = ''
+      gsettings set org.gnome.shell app-picker-layout "[]"
+    '';
   };
 }
